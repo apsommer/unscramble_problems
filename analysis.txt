@@ -1,0 +1,53 @@
+Runtime analysis using Big-O notation
+
+Assume that one line of code is equivalent to one CPU operation. This is obviously false, but this simplification is necessary to estimate the order of runtime complexity.
+
+All 5 tasks have a common header logic that imports a library, opens a csv, creates a stream reader, and converts the reader to a list data type.
+
+Note that this is all worst case analysis. For example, assume a loop must iterate all the way to the last element, every time, to find a match.
+
+common import and reader logic ...
+
+    Two csv files are opened one line at a time and converted to a list data structure. This results in O(2n) complexity.
+
+    O(2n) ~ O(n)
+
+Task 0.
+
+    common import and reader logic ... O(n)
+
+    Two print statement access one row of a 2D list of lists, resulting in O(2). This constant term is dominated by the O(n) complexity of the common header logic.
+
+    O(n) + O(2) ~ O(n)
+
+Task 1.
+
+    common import and reader logic ... O(n)
+
+    Two elements are accessed in every row of a 2D list of lists in a for loop, resulting in O(2n). This same complexity occurs again for the second imported csv file, also resulting in O(2n). Counting a set's length and printing the integer to console each require O(1).
+
+    O(n) + O(4n + 2) ~ O(5n) ~ O(n)
+
+Task 2.
+
+    common import and reader logic ... O(n)
+
+    Both lists created in the common import and reader logic are traversed n times, accessing two elements in each row, for a total of O(4n). A blank set and dictionary are created with constant complexity, resulting in O(2). A 2D list is traversed n times in a loop for O(n). Within this loop, three elements are accessed O(3n) and two get calls are made to a dictionary O(2n). Obtaining the maximum value in a set requires O(n) and a final print statement has constant time of O(3).
+
+    O(n) + O(11n + 5) ~ O(12n) ~ O(n)
+
+Task 3.
+
+    common import and reader logic ... O(n)
+
+    Constant complexity terms are initializing a blank set, integer counters, and print statements ... which all reduce to O(1). The dominating complexity is from a loop O(n) that adds elements to a set, which also costs its own O(n). Adding an element to a set in the worst case is O(n) since every element must be checked to avoid duplication. A final sort operation costs O(nlogn) but this is insignificant relative to the nested loop of n^2.
+
+    O(n^2)
+
+Task 4.
+
+    common import and reader logic ... O(n)
+
+    Initializing a blank list and print statements that access single elements have constant complexity of O(1). In the worst case, adding an element to a set within a loop of O(n) requires O(n^2) computations since every element of the set must be check to avoid duplication. Other loops that discard elements from the set also cost O(n^2) for the same reason. In Python, sorting as set using "Timsort" has a time complexity of O(nlogn) in the worst case. The dominating order here is,
+
+    O(n^2)
